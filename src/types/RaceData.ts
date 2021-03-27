@@ -8,18 +8,18 @@ export default interface RaceData {
   };
   startTime: Date;
   results: Array<{
-    driver: {
-      id: number;
-      name: string;
-      isAi: boolean;
-    };
+    driverId: string;
+    driverName: string;
+    isAi: boolean;
+    startPosition: number;
     position: number;
     points: number;
     laps: Array<{
-      sector1: number;
-      sector2: number;
-      sector3: number;
+      sectors: Array<number>;
+      position: number;
       invalid: boolean;
+      lapnum: number;
+      laptime: number;
     }>;
   }>;
 }
