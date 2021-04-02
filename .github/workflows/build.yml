@@ -16,6 +16,6 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@4.1.0
         with:
           token: ${{secrets.DEPLOY_TOKEN}}
-          branch: master # The branch the action should deploy to.
+          branch: main # The branch the action should deploy to.
           folder: dist # The folder the action should deploy.
           repository-name: f1-2019-results/f1-2019-results.github.io
