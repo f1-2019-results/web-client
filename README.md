@@ -1,5 +1,7 @@
 # F1-2019 stats
 
+Available at https://f1-2019-results.github.io/
+
 ## Project setup
 ```
 npm install
