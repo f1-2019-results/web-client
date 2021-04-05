@@ -1,18 +1,40 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <h2>Races</h2>
+    <v-simple-table>
+      <thead>
+        <tr>
+          <th class="text-left">Date</th>
+          <th class="text-left">Track</th>
+          <th class="text-left">Link</th>
+        </tr>
+      </thead>
+      <tbody v-if="raceList">
+        <tr v-for="race in raceList" :key="race.uid">
+          <td>{{ race.startTime }}</td>
+          <td>{{ race.track.name }}</td>
+          <td>
+            <router-link :to="'/race/' + race.uid">View race</router-link>
+          </td>
+        </tr>
+      </tbody>
+    </v-simple-table>
   </div>
 </template>
 
-<script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue';
+<script lang="ts">
+import { Vue, Component } from 'vue-property-decorator';
+import * as RaceService from '../services/RaceService';
+import PartialRaceData from '../types/PartialRaceData';
 
-export default {
-  name: 'home',
-  components: {
-    HelloWorld,
-  },
-};
+@Component
+export default class Race extends Vue {
+  raceList: PartialRaceData[] = [];
+
+  async mounted() {
+    const raceList = await RaceService.getAllRaces();
+    console.log(raceList);
+    this.raceList = raceList;
+  }
+}
 </script>
