@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <h2>Race</h2>
-    <v-simple-table>
+    <v-simple-table v-if="raceData">
       <thead>
         <tr>
           <th class="text-left">Position</th>
@@ -12,7 +12,7 @@
           <th class="text-left">Points</th>
         </tr>
       </thead>
-      <tbody v-if="raceData">
+      <tbody>
         <tr v-for="result in raceData.results" :key="result.id">
           <td>{{ result.position }}</td>
           <td>{{ result.driverName }}</td>
@@ -23,6 +23,13 @@
         </tr>
       </tbody>
     </v-simple-table>
+    <div v-else>
+      <v-progress-circular
+        :size="50"
+        color="primary"
+        indeterminate
+      ></v-progress-circular>
+    </div>
   </div>
 </template>
 
