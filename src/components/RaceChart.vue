@@ -3,21 +3,10 @@ import { Component, Prop, Mixins } from 'vue-property-decorator';
 import { Line } from 'vue-chartjs';
 import { Chart } from 'chart.js';
 import RaceData from '../types/RaceData';
+import teamColors from '@/data/teamColors'
 
 Chart.defaults.global.defaultFontColor = '#fff';
 
-const teamColors = {
-  Mercedes: '#00D2BE',
-  Ferrari: '#DC0000',
-  'Red Bull Racing': '#1E41FF',
-  Renault: '#FFF500',
-  Haas: '#F0D787',
-  'Racing Point': '#F596C8',
-  'Toro Rosso': '#469BFF',
-  McLaren: '#FF8700',
-  'Alfa Romeo': '#9B0000',
-  Williams: '#FFFFFF',
-} as { [key: string]: string };
 
 @Component
 export default class Race extends Mixins(Line) {

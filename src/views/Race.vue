@@ -41,6 +41,7 @@ export default class Race extends Vue {
     const raceData = await RaceService.getRace(raceId);
     console.log(raceData);
     raceData.results.sort((a, b) => a.position - b.position);
+    raceData.results.forEach(result => result.driverName = result.driverName.substr(3))
     this.raceData = raceData;
   }
 
@@ -48,6 +49,11 @@ export default class Race extends Vue {
 </script>
 
 <style scoped>
+
+.home{
+  font-family: 'Titillium Web', 'Roboto';
+}
+
 .theme--dark .race-chart {
   background-color: #1e1e1e;
 }
