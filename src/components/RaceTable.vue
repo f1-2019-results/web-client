@@ -33,7 +33,7 @@
             >mdi-chevron-down</v-icon
           >
           <v-icon class="mr-1 pb-1" v-else>mdi-minus</v-icon>
-          {{ result.positionsGained }}
+          {{ Math.abs(result.positionsGained) }}
         </td>
         <td class="bold">
           {{ result.position !== 1 ? `+${diffToWinner(result)}s` : '' }}
