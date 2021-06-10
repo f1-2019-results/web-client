@@ -53,6 +53,7 @@ export default class Race extends Mixins(Line) {
       layout: {
         padding: 5,
       },
+      animation: { duration: 0 },
     });
   }
 
@@ -67,7 +68,7 @@ export default class Race extends Mixins(Line) {
         label: result.driverName,
         backgroundColor: teamColors[result.teamName],
         borderColor: teamColors[result.teamName],
-        borderDash: j % 2 === 0 ? undefined : [4,3],
+        borderDash: j % 2 === 0 ? undefined : [4, 3],
       })),
     };
   }
