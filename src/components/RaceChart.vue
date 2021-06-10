@@ -4,6 +4,19 @@ import { Line } from 'vue-chartjs';
 import { Chart } from 'chart.js';
 import RaceData from '../types/RaceData';
 
+const teamColors = {
+  Mercedes: '#00D2BE',
+  Ferrari: '#DC0000',
+  'Red Bull Racing': '#1E41FF',
+  Renault: '#FFF500',
+  Haas: '#F0D787',
+  'Racing Point': '#F596C8',
+  'Toro Rosso': '#469BFF',
+  McLaren: '#FF8700',
+  'Alfa Romeo': '#9B0000',
+  Williams: '#FFFFFF',
+} as { [key: string]: string };
+
 @Component
 export default class Race extends Mixins(Line) {
   @Prop(Object)
@@ -23,7 +36,7 @@ export default class Race extends Mixins(Line) {
               // So display invisible 0 label on top
               beginAtZero: true,
               maxTicksLimit: 21,
-              callback:  (tick, index, array) => index === 0 ? '' : tick,
+              callback: (tick, index, array) => (index === 0 ? '' : tick),
             },
           },
         ],
@@ -43,6 +56,8 @@ export default class Race extends Mixins(Line) {
         ),
         fill: false,
         label: result.driverName,
+        backgroundColor: teamColors[result.teamName],
+        borderColor: teamColors[result.teamName],
       })),
     };
   }
