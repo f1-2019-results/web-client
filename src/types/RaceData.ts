@@ -10,6 +10,7 @@ export default interface RaceData {
   results: Array<{
     driverId: string;
     driverName: string;
+    teamName: string;
     isAi: boolean;
     startPosition: number;
     position: number;

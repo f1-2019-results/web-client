@@ -8,6 +8,7 @@
           <tr>
             <th class="text-left">Position</th>
             <th class="text-left">Name</th>
+            <th class="text-left">Team</th>
             <th class="text-left">Start position</th>
             <th class="text-left">Positions gained</th>
             <th class="text-left">Time</th>
@@ -18,6 +19,7 @@
           <tr v-for="result in raceData.results" :key="result.id">
             <td>{{ result.position }}</td>
             <td>{{ result.driverName }}</td>
+            <td>{{ result.teamName }}</td>
             <td>{{ result.startPosition }}</td>
             <td>{{ result.startPosition - result.position }}</td>
             <td>{{ `+${diffToWinner(result)}s` }}</td>
