@@ -2,37 +2,44 @@
   <div class="home">
     <h2>Race</h2>
     <div v-if="raceData">
-      <race-chart
-        :raceData="raceData"
-        :height="700"
-        class="race-chart"
-      ></race-chart>
-      <v-simple-table>
-        <thead>
-          <tr>
-            <th class="text-left">Position</th>
-            <th class="text-left">Name</th>
-            <th class="text-left">Team</th>
-            <th class="text-left">Start position</th>
-            <th class="text-left">Positions gained</th>
-            <th class="text-left">Time</th>
-            <th class="text-left">Points</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="result in raceData.results" :key="result.id">
-            <td>{{ result.position }}</td>
-            <td>{{ result.driverName }}</td>
-            <td>{{ result.teamName }}</td>
-            <td>{{ result.startPosition }}</td>
-            <td>{{ result.startPosition - result.position }}</td>
-            <td>{{ `+${diffToWinner(result)}s` }}</td>
-            <td>{{ result.points }}</td>
-          </tr>
-        </tbody>
-      </v-simple-table>
+      <v-tabs>
+        <v-tab ripple>Results</v-tab>
+        <v-tab ripple>Position graph</v-tab>
+        <v-tab-item>
+          <v-simple-table>
+            <thead>
+              <tr>
+                <th class="text-left">Position</th>
+                <th class="text-left">Name</th>
+                <th class="text-left">Team</th>
+                <th class="text-left">Start position</th>
+                <th class="text-left">Positions gained</th>
+                <th class="text-left">Time</th>
+                <th class="text-left">Points</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="result in raceData.results" :key="result.id">
+                <td>{{ result.position }}</td>
+                <td>{{ result.driverName }}</td>
+                <td>{{ result.teamName }}</td>
+                <td>{{ result.startPosition }}</td>
+                <td>{{ result.startPosition - result.position }}</td>
+                <td>{{ `+${diffToWinner(result)}s` }}</td>
+                <td>{{ result.points }}</td>
+              </tr>
+            </tbody>
+          </v-simple-table>
+        </v-tab-item>
+        <v-tab-item>
+          <race-chart
+            :raceData="raceData"
+            :height="700"
+            class="race-chart"
+          ></race-chart
+        ></v-tab-item>
+      </v-tabs>
     </div>
-
     <div v-else>
       <v-progress-circular
         :size="50"
