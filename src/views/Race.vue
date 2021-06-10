@@ -1,28 +1,32 @@
 <template>
   <div class="home">
     <h2>Race</h2>
-    <v-simple-table v-if="raceData">
-      <thead>
-        <tr>
-          <th class="text-left">Position</th>
-          <th class="text-left">Name</th>
-          <th class="text-left">Start position</th>
-          <th class="text-left">Positions gained</th>
-          <th class="text-left">Time</th>
-          <th class="text-left">Points</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="result in raceData.results" :key="result.id">
-          <td>{{ result.position }}</td>
-          <td>{{ result.driverName }}</td>
-          <td>{{ result.startPosition + 1 }}</td>
-          <td>{{ result.startPosition + 1 - result.position }}</td>
-          <td>{{ `+${diffToWinner(result)}s` }}</td>
-          <td>{{ result.points }}</td>
-        </tr>
-      </tbody>
-    </v-simple-table>
+    <div v-if="raceData">
+      <race-chart :raceData="raceData"></race-chart>
+      <v-simple-table>
+        <thead>
+          <tr>
+            <th class="text-left">Position</th>
+            <th class="text-left">Name</th>
+            <th class="text-left">Start position</th>
+            <th class="text-left">Positions gained</th>
+            <th class="text-left">Time</th>
+            <th class="text-left">Points</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="result in raceData.results" :key="result.id">
+            <td>{{ result.position }}</td>
+            <td>{{ result.driverName }}</td>
+            <td>{{ result.startPosition + 1 }}</td>
+            <td>{{ result.startPosition + 1 - result.position }}</td>
+            <td>{{ `+${diffToWinner(result)}s` }}</td>
+            <td>{{ result.points }}</td>
+          </tr>
+        </tbody>
+      </v-simple-table>
+    </div>
+
     <div v-else>
       <v-progress-circular
         :size="50"
@@ -35,10 +39,13 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator';
+import RaceChart from '../components/RaceChart.vue';
 import RaceData from '../types/RaceData';
 import * as RaceService from '../services/RaceService';
 
-@Component
+@Component({
+  components: { RaceChart },
+})
 export default class Race extends Vue {
   raceData: RaceData | null = null;
 
