@@ -25,8 +25,13 @@ export default class Race extends Mixins(Line) {
   readonly raceData: RaceData;
 
   mounted() {
-    const graphData = this.calculateGraphData(this.raceData);
-    console.log(graphData);
+    const sortedRaceDate = {
+      ...this.raceData,
+      // Don't  mutate raceData
+      results: [...this.raceData.results].sort((a,b) => a.teamName.localeCompare(b.teamName))
+    }
+    const graphData = this.calculateGraphData(sortedRaceDate);
+    
     this.renderChart(graphData, {
       maintainAspectRatio: false,
       scales: {
