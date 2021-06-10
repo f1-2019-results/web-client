@@ -2,7 +2,11 @@
   <div class="home">
     <h2>Race</h2>
     <div v-if="raceData">
-      <race-chart :raceData="raceData" :height="700"></race-chart>
+      <race-chart
+        :raceData="raceData"
+        :height="700"
+        class="race-chart"
+      ></race-chart>
       <v-simple-table>
         <thead>
           <tr>
@@ -71,3 +75,9 @@ export default class Race extends Vue {
   }
 }
 </script>
+
+<style scoped>
+.theme--dark .race-chart {
+  background-color: #1e1e1e;
+}
+</style>

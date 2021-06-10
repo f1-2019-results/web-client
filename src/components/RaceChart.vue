@@ -1,8 +1,10 @@
 <script lang="ts">
-import { Vue, Component, Prop, Mixins } from 'vue-property-decorator';
+import { Component, Prop, Mixins } from 'vue-property-decorator';
 import { Line } from 'vue-chartjs';
 import { Chart } from 'chart.js';
 import RaceData from '../types/RaceData';
+
+Chart.defaults.global.defaultFontColor = '#fff';
 
 const teamColors = {
   Mercedes: '#00D2BE',
