@@ -3,10 +3,9 @@ import { Component, Prop, Mixins } from 'vue-property-decorator';
 import { Line } from 'vue-chartjs';
 import { Chart } from 'chart.js';
 import RaceData from '../types/RaceData';
-import teamColors from '@/data/teamColors'
+import teamColors from '@/data/teamColors';
 
 Chart.defaults.global.defaultFontColor = '#fff';
-
 
 @Component
 export default class Race extends Mixins(Line) {
@@ -14,14 +13,8 @@ export default class Race extends Mixins(Line) {
   readonly raceData: RaceData;
 
   mounted() {
-    const sortedRaceDate = {
-      ...this.raceData,
-      // Don't  mutate raceData
-      results: [...this.raceData.results].sort((a, b) =>
-        a.teamName.localeCompare(b.teamName)
-      ),
-    };
-    const graphData = this.calculateGraphData(sortedRaceDate);
+    const graphData = this.calculateGraphData(this.raceData);
+    console.log(graphData);
 
     this.renderChart(graphData, {
       maintainAspectRatio: false,
@@ -47,9 +40,12 @@ export default class Race extends Mixins(Line) {
   }
 
   calculateGraphData(raceData: RaceData): Chart.ChartData {
+    const resultsSortedByTeamName = [...this.raceData.results].sort((a, b) =>
+      a.teamName.localeCompare(b.teamName)
+    );
     return {
-      labels: raceData.results[0].laps.map((result, i) => i + 1),
-      datasets: raceData.results.map((result, j) => ({
+      labels: [0].concat(raceData.results[0].laps.map((result, i) => i + 1)),
+      datasets: resultsSortedByTeamName.map((result, j) => ({
         data: [result.startPosition].concat(
           result.laps.map((lap) => lap.position)
         ),
