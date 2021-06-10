@@ -2,7 +2,7 @@
   <div class="home">
     <h2>Race</h2>
     <div v-if="raceData">
-      <race-chart :raceData="raceData"></race-chart>
+      <race-chart :raceData="raceData" :height="700"></race-chart>
       <v-simple-table>
         <thead>
           <tr>
