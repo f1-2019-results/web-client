@@ -14,6 +14,7 @@ export default interface RaceData {
     isAi: boolean;
     startPosition: number;
     position: number;
+    positionsGained: number;
     points: number;
     laps: Array<{
       sectors: Array<number>;

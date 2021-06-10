@@ -21,8 +21,13 @@
         </td>
         <td>{{ result.teamName }}</td>
         <td class="bold">{{ result.startPosition }}</td>
-        <td class="bold">{{ result.startPosition - result.position }}</td>
-        <td class="bold">{{ `+${diffToWinner(result)}s` }}</td>
+        <td class="bold">
+          <v-icon class="mr-1 pb-1" color="#71c368" v-if="result.positionsGained > 0">mdi-chevron-up</v-icon>
+          <v-icon class="mr-1 pb-1" color="#dec33c" v-else-if="result.positionsGained < 0">mdi-chevron-down</v-icon>
+          <v-icon class="mr-1 pb-1" v-else>mdi-minus</v-icon>
+          {{ result.positionsGained }}
+        </td>
+        <td class="bold">{{ result.position !== 1 ? `+${diffToWinner(result)}s` : '' }}</td>
         <td class="bold">{{ result.points }}</td>
       </tr>
     </tbody>
@@ -59,7 +64,6 @@ export default class RaceTable extends Vue {
 </script>
 
 <style scoped>
-
 table tbody td {
   border-bottom: none !important;
   font-size: 1.2rem !important;
@@ -91,7 +95,7 @@ table tbody td {
   align-items: center;
 }
 
-.bold{
+.bold {
   font-weight: 600;
 }
 </style>

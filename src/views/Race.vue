@@ -41,16 +41,17 @@ export default class Race extends Vue {
     const raceData = await RaceService.getRace(raceId);
     console.log(raceData);
     raceData.results.sort((a, b) => a.position - b.position);
-    raceData.results.forEach(result => result.driverName = result.driverName.substr(3))
+    raceData.results.forEach((result) => {
+      result.driverName = result.driverName.substr(3);
+      result.positionsGained = result.startPosition - result.position;
+    });
     this.raceData = raceData;
   }
-
 }
 </script>
 
 <style scoped>
-
-.home{
+.home {
   font-family: 'Titillium Web', 'Roboto';
 }
 
