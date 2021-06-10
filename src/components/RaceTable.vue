@@ -36,7 +36,7 @@
           {{ Math.abs(result.positionsGained) }}
         </td>
         <td class="bold">
-          {{ result.position !== 1 ? `+${diffToWinner(result)}s` : '' }}
+          {{ getGapString(result) }}
         </td>
         <td class="bold">{{ result.points }}</td>
       </tr>
@@ -62,13 +62,23 @@ export default class RaceTable extends Vue {
     const winnerTotalTime = this.totalTime(this.raceData.results[0]);
     const currentTotalTime = this.totalTime(result);
     const diff = currentTotalTime - winnerTotalTime;
-    return diff.toFixed(3);
+    if (diff >= 60) {
+      return `${Math.floor(diff / 60)}:${(diff % 60).toFixed(3)}`;
+    } else {
+      return diff.toFixed(3);
+    }
   }
 
   getTeamColor(teamName: string) {
     return {
       background: teamColors[teamName],
     };
+  }
+
+  getGapString(result: RaceData['results'][0]) {
+    const lapDiff = this.raceData.results[0].laps.length - result.laps.length;
+    if (lapDiff > 0) return `+ ${lapDiff} ${lapDiff > 1 ? 'laps' : 'lap'}`;
+    return result.position !== 1 ? `+${this.diffToWinner(result)}` : '';
   }
 }
 </script>
