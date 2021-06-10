@@ -6,38 +6,11 @@
         <v-tab ripple>Results</v-tab>
         <v-tab ripple>Position graph</v-tab>
         <v-tab-item>
-          <v-simple-table>
-            <thead>
-              <tr>
-                <th class="text-left">Position</th>
-                <th class="text-left">Name</th>
-                <th class="text-left">Team</th>
-                <th class="text-left">Start position</th>
-                <th class="text-left">Positions gained</th>
-                <th class="text-left">Time</th>
-                <th class="text-left">Points</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="result in raceData.results" :key="result.id">
-                <td>{{ result.position }}</td>
-                <td>{{ result.driverName }}</td>
-                <td>{{ result.teamName }}</td>
-                <td>{{ result.startPosition }}</td>
-                <td>{{ result.startPosition - result.position }}</td>
-                <td>{{ `+${diffToWinner(result)}s` }}</td>
-                <td>{{ result.points }}</td>
-              </tr>
-            </tbody>
-          </v-simple-table>
+          <race-table :raceData="raceData" />
         </v-tab-item>
         <v-tab-item>
-          <race-chart
-            :raceData="raceData"
-            :height="700"
-            class="race-chart"
-          ></race-chart
-        ></v-tab-item>
+          <race-chart :raceData="raceData" :height="700" class="race-chart" />
+        </v-tab-item>
       </v-tabs>
     </div>
     <div v-else>
@@ -53,11 +26,12 @@
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator';
 import RaceChart from '../components/RaceChart.vue';
+import RaceTable from '../components/RaceTable.vue';
 import RaceData from '../types/RaceData';
 import * as RaceService from '../services/RaceService';
 
 @Component({
-  components: { RaceChart },
+  components: { RaceChart, RaceTable },
 })
 export default class Race extends Vue {
   raceData: RaceData | null = null;
@@ -70,16 +44,6 @@ export default class Race extends Vue {
     this.raceData = raceData;
   }
 
-  totalTime(result: RaceData['results'][0]) {
-    return result.laps.reduce((prev, curr) => prev + curr.laptime, 0);
-  }
-
-  diffToWinner(result: RaceData['results'][0]) {
-    const winnerTotalTime = this.totalTime(this.raceData.results[0]);
-    const currentTotalTime = this.totalTime(result);
-    const diff = currentTotalTime - winnerTotalTime;
-    return diff.toFixed(3);
-  }
 }
 </script>
 
