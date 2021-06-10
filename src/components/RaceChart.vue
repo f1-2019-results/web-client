@@ -28,10 +28,12 @@ export default class Race extends Mixins(Line) {
     const sortedRaceDate = {
       ...this.raceData,
       // Don't  mutate raceData
-      results: [...this.raceData.results].sort((a,b) => a.teamName.localeCompare(b.teamName))
-    }
+      results: [...this.raceData.results].sort((a, b) =>
+        a.teamName.localeCompare(b.teamName)
+      ),
+    };
     const graphData = this.calculateGraphData(sortedRaceDate);
-    
+
     this.renderChart(graphData, {
       maintainAspectRatio: false,
       scales: {
@@ -57,7 +59,7 @@ export default class Race extends Mixins(Line) {
   calculateGraphData(raceData: RaceData): Chart.ChartData {
     return {
       labels: raceData.results[0].laps.map((result, i) => i + 1),
-      datasets: raceData.results.map((result) => ({
+      datasets: raceData.results.map((result, j) => ({
         data: [result.startPosition].concat(
           result.laps.map((lap) => lap.position)
         ),
@@ -65,6 +67,7 @@ export default class Race extends Mixins(Line) {
         label: result.driverName,
         backgroundColor: teamColors[result.teamName],
         borderColor: teamColors[result.teamName],
+        borderDash: j % 2 === 0 ? undefined : [4,3],
       })),
     };
   }
