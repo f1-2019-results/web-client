@@ -48,7 +48,7 @@ export default class Race extends Mixins(Line) {
         datalabels: {
           color: 'white',
           backgroundColor: '#333',
-          borderColor: ( context) => {
+          borderColor: (context) => {
             return context.dataset.borderColor as string;
           },
           borderRadius: 16,
@@ -92,9 +92,9 @@ export default class Race extends Mixins(Line) {
           align: 'center',
           anchor: 'center',
         },
+        cubicInterpolationMode: 'monotone',
       })),
     };
   }
-  
 }
 </script>
