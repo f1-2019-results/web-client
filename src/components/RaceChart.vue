@@ -39,6 +39,14 @@ export default class Race extends Mixins(Line) {
             },
           },
         ],
+        xAxes: [
+          {
+            scaleLabel: {
+              labelString: 'Lap',
+              display: true,
+            }
+          }
+        ]
       },
       layout: {
         padding: 5,

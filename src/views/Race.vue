@@ -9,7 +9,7 @@
           <race-table :raceData="raceData" />
         </v-tab-item>
         <v-tab-item>
-          <race-chart :raceData="raceData" :height="700" class="race-chart" />
+          <race-chart :raceData="raceData" :height="730" class="race-chart" />
         </v-tab-item>
       </v-tabs>
     </div>
