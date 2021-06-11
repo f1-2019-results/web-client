@@ -2,6 +2,7 @@
 import { Component, Prop, Mixins } from 'vue-property-decorator';
 import { Line } from 'vue-chartjs';
 import { Chart } from 'chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 import RaceData from '../types/RaceData';
 import teamColors from '@/data/teamColors';
 
@@ -13,8 +14,15 @@ export default class Race extends Mixins(Line) {
   readonly raceData: RaceData;
 
   mounted() {
+    this.addPlugin(ChartDataLabels);
+
     const graphData = this.calculateGraphData(this.raceData);
     console.log(graphData);
+
+    // FIXME: Refactor
+    const resultsSortedByTeamName = [...this.raceData.results].sort((a, b) =>
+      a.teamName.localeCompare(b.teamName)
+    );
 
     this.renderChart(graphData, {
       maintainAspectRatio: false,
@@ -36,6 +44,32 @@ export default class Race extends Mixins(Line) {
         padding: 5,
       },
       animation: { duration: 0 },
+      plugins: {
+        datalabels: {
+          color: 'white',
+          backgroundColor: '#333',
+          borderColor: ( context) => {
+            return context.dataset.borderColor as string;
+          },
+          borderRadius: 16,
+          borderWidth: 3,
+          font: {
+            weight: 'bold',
+            size: 14,
+          },
+          padding: {
+            left: 6,
+            right: 6,
+            bottom: 1,
+          },
+          formatter: (value, context) => {
+            const result = resultsSortedByTeamName[context.datasetIndex];
+            const lap = result.laps[context.dataIndex];
+            if (lap && lap.pit) return 'P';
+            return null;
+          },
+        },
+      },
     });
   }
 
@@ -54,8 +88,13 @@ export default class Race extends Mixins(Line) {
         backgroundColor: teamColors[result.teamName],
         borderColor: teamColors[result.teamName],
         borderDash: j % 2 === 0 ? undefined : [4, 3],
+        datalabels: {
+          align: 'center',
+          anchor: 'center',
+        },
       })),
     };
   }
+  
 }
 </script>
