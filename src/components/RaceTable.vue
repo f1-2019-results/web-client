@@ -102,6 +102,10 @@ table tbody td {
   font-size: 1.2rem !important;
 }
 
+thead{
+  text-transform: uppercase;
+}
+
 .position {
   background-color: white;
   color: #333;
