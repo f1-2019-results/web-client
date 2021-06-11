@@ -23,6 +23,7 @@ export default interface RaceData {
       invalid: boolean;
       lapnum: number;
       laptime: number;
+      pit: boolean;
     }>;
   }>;
 }

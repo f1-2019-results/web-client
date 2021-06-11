@@ -6,6 +6,7 @@
         <th class="text-left">Team</th>
         <th class="text-left">Positions gained</th>
         <th class="text-left">Gap</th>
+        <th class="text-left">Pit Stops</th>
         <th class="text-left">Points</th>
       </tr>
     </thead>
@@ -38,6 +39,7 @@
         <td class="bold">
           {{ getGapString(result) }}
         </td>
+        <td class="bold">{{ pitStops(result) }}</td>
         <td class="bold">{{ result.points }}</td>
       </tr>
     </tbody>
@@ -80,6 +82,11 @@ export default class RaceTable extends Vue {
     const lapDiff = this.raceData.results[0].laps.length - result.laps.length;
     if (lapDiff > 0) return `+ ${lapDiff} ${lapDiff > 1 ? 'laps' : 'lap'}`;
     return result.position !== 1 ? `+${this.diffToWinner(result)}` : '';
+  }
+
+  pitStops(result: RaceData['results'][0]) {
+    console.log(result);
+    return result.laps.filter((lap) => lap.pit).length;
   }
 }
 </script>
