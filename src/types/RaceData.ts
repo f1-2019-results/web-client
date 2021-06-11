@@ -12,6 +12,7 @@ export default interface RaceData {
     driverName: string;
     teamName: string;
     isAi: boolean;
+    dnf: boolean;
     startPosition: number;
     position: number;
     positionsGained: number;

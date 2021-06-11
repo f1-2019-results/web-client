@@ -76,6 +76,7 @@ export default class RaceTable extends Vue {
   }
 
   getGapString(result: RaceData['results'][0]) {
+    if (result.dnf) return 'DNF';
     const lapDiff = this.raceData.results[0].laps.length - result.laps.length;
     if (lapDiff > 0) return `+ ${lapDiff} ${lapDiff > 1 ? 'laps' : 'lap'}`;
     return result.position !== 1 ? `+${this.diffToWinner(result)}` : '';
