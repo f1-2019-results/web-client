@@ -1,6 +1,6 @@
 # F1-2019 stats
 
-Available at https://f1-2019-results.github.io/
+Available at https://f1-2019-results.github.io/ (Might take some time for api to wake up)
 
 ## Project setup
 ```
